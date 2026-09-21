@@ -5,6 +5,7 @@ import TangledLine from "@/components/illustrations/TangledLine";
 import ConnectionLines from "@/components/illustrations/ConnectionLines";
 import MoonPanel from "@/components/illustrations/MoonPanel";
 import InstagramSection from "@/components/public/InstagramSection";
+import CinematicHero from "@/components/public/CinematicHero";
 import {
   ConversationIcon,
   HelpIcon,
@@ -66,55 +67,26 @@ const USPS = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero — the reference image supplied by the user, used directly
-          (its own headline/CTAs/card are part of the picture, so nothing
-          is duplicated on top of it). Height is capped to match the
-          previous compact hero rather than the image's full native height,
-          via object-cover — same footprint, no huge banner. The two visible
-          buttons baked into the image are real, keyboard-reachable links,
-          placed over their exact position. */}
-      <section
-        className="relative w-full overflow-hidden bg-ink-deep"
-        style={{ aspectRatio: "1870 / 841", maxHeight: "620px" }}
-      >
-        <Image
-          src="/hero-banner.jpg"
-          alt="mAItrymoon — Some things are easier to say when someone listens. An AI-powered Relationship Counsellor."
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[50%_42%]"
-        />
-
-        <Link
-          href="/login"
-          className="btn-motion absolute rounded-full"
-          style={{ left: "8%", top: "64.5%", width: "15.5%", height: "9.5%" }}
-          aria-label="Talk to mAItrymoon"
-        />
-        <a
-          href="#"
-          title="Placeholder link — connect to your real WhatsApp entry point"
-          className="btn-motion absolute rounded-full"
-          style={{ left: "25%", top: "64.5%", width: "16.8%", height: "9.5%" }}
-          aria-label="Continue on WhatsApp"
-        />
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-      </section>
+      {/* Hero — a two-slide, self-running carousel: Slide 1 introduces
+          mAItrymoon via the living phone-conversation composition, Slide 2
+          is the existing cinematic photo slide, preserved as-is. Autoplays
+          on load, no click/scroll required. See CinematicHero.tsx. */}
+      <CinematicHero />
 
       {/* The Problem — illustrated scenario cards */}
       <section className="relative overflow-hidden bg-gradient-to-br from-gold-light/20 via-canvas to-garnet/5 py-16 sm:py-20">
         <ConnectionLines className="pointer-events-none absolute inset-0 h-full w-full opacity-70" />
         <div className="container-page relative">
           <Reveal>
-            <h2 className="max-w-2xl font-serif text-2xl font-bold text-ink sm:text-3xl">
-              Relationships come with misunderstandings, arguments, and
-              communication gaps.
+            <p className="text-xs font-semibold uppercase tracking-widest text-garnet">Why mAItrymoon</p>
+            <h2 className="mt-2 max-w-2xl font-serif text-2xl font-bold text-ink sm:text-3xl">
+              One argument. Two different realities.
             </h2>
             <p className="mt-3 max-w-xl text-ink/70">
-              Often what's missing isn't advice — it's a neutral space to
-              explain what actually happened before reacting.
+              Two people can live through the same disagreement and walk
+              away with two different stories. Often what's missing isn't
+              advice — it's a neutral space to explain what actually
+              happened before reacting.
             </p>
           </Reveal>
 
@@ -178,6 +150,16 @@ export default function HomePage() {
                   </span>
                   <span className="text-sm text-ink/75">
                     Private and non-judgmental, every time you open the chat.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full bg-garnet/10">
+                    <VoiceIcon className="h-4 w-4 text-garnet" />
+                  </span>
+                  <span className="text-sm text-ink/75">
+                    Type or send a voice message — and bring your partner in
+                    with a Partner Session when you're ready to hear both
+                    sides.
                   </span>
                 </li>
               </ul>
@@ -328,27 +310,27 @@ export default function HomePage() {
             <h2 className="font-serif text-2xl font-bold text-ink sm:text-3xl">How It Works</h2>
           </Reveal>
 
-          <ol className="relative mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="relative mt-10 grid gap-6 sm:grid-cols-3">
             {/* connecting path, desktop only */}
             <div
-              className="pointer-events-none absolute left-0 right-0 top-6 hidden h-px lg:block"
+              className="pointer-events-none absolute left-0 right-0 top-9 hidden h-px sm:block"
               style={{ background: "linear-gradient(90deg, transparent, #C9982E 15%, #C9982E 85%, transparent)" }}
             />
             {[
-              { icon: ConversationIcon, text: "Tell mAItrymoon what happened." },
-              { icon: HelpIcon, text: "Answer relevant questions." },
-              { icon: ListeningIcon, text: "Explore the situation with the AI counsellor." },
-              { icon: PrivacyIcon, text: "Continue until you have greater clarity." },
-            ].map(({ icon: Icon, text }, i) => (
-              <Reveal key={text} delay={i * 100} as="li" className="group relative flex flex-col items-start">
-                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-gold bg-white text-sm font-bold text-garnet shadow-sm">
-                  {i + 1}
+              { icon: ConversationIcon, title: "Share your side.", text: "Tell mAItrymoon what happened, in your own words, without interruption." },
+              { icon: ListeningIcon, title: "Understand another perspective.", text: "Explore how the same moment may look from your partner's side." },
+              { icon: PrivacyIcon, title: "Find a clearer way forward.", text: "Move from the argument itself towards a way to actually resolve it." },
+            ].map(({ icon: Icon, title, text }, i) => (
+              <Reveal key={title} delay={i * 120} as="li" className="group relative flex flex-col items-start">
+                <span className="relative z-10 flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border-2 border-gold bg-white font-serif text-2xl font-bold text-garnet shadow-sm">
+                  0{i + 1}
                 </span>
                 <div className="mt-4 w-full cursor-default rounded-xl2 border-2 border-gold/25 bg-white/90 p-5 shadow-sm backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-garnet hover:shadow-md">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-garnet/10 transition-colors duration-200 group-hover:bg-garnet">
                     <Icon className="h-5 w-5 text-garnet transition-colors duration-200 group-hover:text-canvas" />
                   </span>
-                  <p className="mt-3 text-sm text-ink/80">{text}</p>
+                  <p className="mt-3 font-serif text-base font-semibold text-ink">{title}</p>
+                  <p className="mt-1.5 text-sm text-ink/70">{text}</p>
                 </div>
               </Reveal>
             ))}
@@ -454,7 +436,7 @@ export default function HomePage() {
         />
         <Reveal className="container-page relative">
           <h2 className="font-serif text-3xl font-bold">
-            Ready to start talking it out?
+            Your relationship deserves understanding.
           </h2>
           <Link
             href="/login"

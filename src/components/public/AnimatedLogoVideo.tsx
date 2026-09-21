@@ -35,9 +35,15 @@ export default function AnimatedLogoVideo({
 
   return (
     <video
-      className={className}
-      width={480}
-      height={360}
+      // object-contain is the fix for the logo looking "squished" — without
+      // it, a <video> stretches (object-fit: fill is the element default)
+      // to whatever box the width/height attributes below describe, so any
+      // mismatch between that box and the clip's real aspect ratio distorts
+      // the rings/wordmark. width/height are set to the real logo artwork's
+      // ratio (logo-full.png is 900x600) so the box itself is also correct.
+      className={`${className} object-contain`}
+      width={900}
+      height={600}
       autoPlay
       muted
       loop

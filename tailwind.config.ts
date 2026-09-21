@@ -12,9 +12,12 @@ const config: Config = {
         // wordmark on deep navy/black). Confirm with the team before final
         // launch; this is the working system per the design brief.
         ink: {
-          DEFAULT: "#10172B", // deep night-navy — grounds the gold, echoes the logo's dark field
-          light: "#1E2A47",
-          deep: "#080C18", // near-black, used for the richest hero/footer moments
+          // Warm charcoal/near-black family — previously a navy-black
+          // (blue channel higher than red/green), which is what read as a
+          // blue color cast on the hero/footer. Rebalanced warm so R >= B.
+          DEFAULT: "#211C1A",
+          light: "#332B27",
+          deep: "#120F0D", // near-black, used for the richest hero/footer moments
         },
         moon: {
           DEFAULT: "#C7D2E8", // soft moonlight blue-grey — breathing space between sections
@@ -35,6 +38,8 @@ const config: Config = {
           light: "#E7C878",
         },
         canvas: "#FBF7EE", // warm ivory, slightly richer than plain white to sit with the gold
+        ivory: "#F7F1E6", // same warm-cream family as canvas, used for text sitting on dark hero scenes
+        charcoal: "#241D1A", // warm near-black (brown, not navy) — body text on light/champagne surfaces
       },
       fontFamily: {
         // var(--font-serif) / var(--font-sans) are set by next/font in

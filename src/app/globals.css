@@ -105,3 +105,63 @@ select:focus-visible {
   0% { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(2.2); opacity: 0; }
 }
+
+/* Floating pill navbar's one-time entrance — slides/fades in on page load. */
+.nav-float-in {
+  animation: nav-float-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes nav-float-in {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-float-in { animation: none; }
+}
+
+/* Cinematic hero — scene 1's soft golden glow behind the logo, and the
+   simplified fade/slide-in used by the stacked (mobile / reduced-motion)
+   fallback version of the four scenes. */
+.logo-glow {
+  background: radial-gradient(circle, rgba(201, 152, 46, 0.35) 0%, rgba(201, 152, 46, 0.12) 45%, rgba(201, 152, 46, 0) 72%);
+  animation: logo-glow-pulse 4.5s ease-in-out infinite;
+}
+@keyframes logo-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-glow { animation: none; }
+}
+
+/* Hero carousel — each slide's text block gets a fresh React `key` when the
+   slide changes, so this replays as a mount animation every time. */
+.hero-slide-in {
+  animation: hero-slide-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes hero-slide-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-in { animation: none; }
+}
+
+/* Hero "living" composition — two glow orbs drifting gently toward/around
+   the center (their own --orb-duration/--orb-dx/--orb-dy per instance, so
+   they never move in lockstep), and a very slow continuous ring rotation
+   for the brand motif sitting behind the phone mockup. */
+@media (prefers-reduced-motion: no-preference) {
+  .orb-drift {
+    animation: orb-drift var(--orb-duration, 9s) ease-in-out infinite;
+  }
+  .ring-rotate-slow {
+    animation: ring-rotate-slow 70s linear infinite;
+  }
+}
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(var(--orb-dx, 14px), var(--orb-dy, -10px)) scale(1.06); }
+}
+@keyframes ring-rotate-slow {
+  to { transform: rotate(360deg); }
+}

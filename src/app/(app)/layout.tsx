@@ -44,7 +44,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           chat's "Exit to Dashboard" link — so nothing is lost.) */}
       <Header />
 
-      <main className="flex flex-1 flex-col">
+      {/* pt-24/28 clears the fixed floating pill navbar (see Header.tsx) */}
+      <main className="flex flex-1 flex-col pt-24 sm:pt-28">
         {isLoading ? (
           <div className="flex flex-1 items-center justify-center py-24 text-sm text-ink/50">
             Loading…
