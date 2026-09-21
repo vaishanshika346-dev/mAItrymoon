@@ -366,10 +366,15 @@ export default function CinematicHero() {
 
   return (
     <div className="-mt-24 relative h-[100svh] w-full overflow-hidden bg-ink-deep sm:-mt-28">
+      {/* Crossfade kept short on purpose: the two slides look nothing alike
+          (dark phone mockup vs. a bright photo), so a long fade meant you'd
+          see the new slide's text sitting over the old slide's still-fading
+          visual for over a second — read as messy/stuck, not smooth. A
+          quick fade reads as a clean cut instead of a lingering blend. */}
       {SLIDES.map((slide, i) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-[1400ms] ease-in-out ${
+          className={`absolute inset-0 transition-opacity duration-[550ms] ease-in-out ${
             i === index ? "z-10 opacity-100" : "z-0 opacity-0"
           }`}
           aria-hidden={i !== index}
