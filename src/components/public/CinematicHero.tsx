@@ -227,11 +227,19 @@ function IntroVisual({ active }: { active: boolean }) {
    "doubled/ghosted text" glitch was the real background image already
    containing a mocked-up headline, with this component's own live text
    drawn on top of it a second time. Swapping in the clean source photo
-   fixes that at the root. object-center + a light zoom keeps both people
-   fully in frame (no over-cropped, zoomed-into-one-face look), and a
-   center vignette (rather than the old left-heavy diagonal one) darkens
-   just the middle strip behind the seam so the centered text/CTA stay
-   legible without hiding either side of the photo. */
+   fixes that at the root.
+
+   The photo is a wide landscape shot (~2.2:1) but the hero fills a full
+   100svh box. On a phone that box is very tall and narrow (~0.46:1), so a
+   single `object-cover` image only had room to show a ~20%-wide sliver of
+   the photo — and object-center landed that sliver exactly on the empty
+   gap between the two people, so the whole hero read as a plain dark
+   screen with no photo at all. Fixed with two layers: a blurred, cropped
+   copy fills the frame edge-to-edge as a backdrop (so there's never a flat
+   empty bar), and the real photo sits on top with `object-contain` on
+   small screens — the FULL photo, uncropped, letterboxed into view — and
+   switches to the immersive full-bleed `object-cover` from `sm:` up,
+   where the wide hero has room to show it properly. */
 function ConflictVisual({ active }: { active: boolean }) {
   return (
     <>
@@ -239,9 +247,17 @@ function ConflictVisual({ active }: { active: boolean }) {
         src="/hero-couple.jpg"
         alt=""
         fill
+        aria-hidden="true"
+        sizes="100vw"
+        className="scale-110 object-cover object-center opacity-60 blur-2xl sm:hidden"
+      />
+      <Image
+        src="/hero-couple.jpg"
+        alt=""
+        fill
         priority
         sizes="100vw"
-        className={`object-cover object-center transition-transform duration-[7000ms] ease-out ${
+        className={`object-contain object-center transition-transform duration-[7000ms] ease-out sm:object-cover ${
           active ? "scale-105" : "scale-100"
         }`}
       />
